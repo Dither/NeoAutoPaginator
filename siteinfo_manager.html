@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NeoAutoPaginator - SITEINFO Database Editor</title>
+  <link rel="stylesheet" href="css/manager.css">
+  <script src="scripts/common.js"></script>
+  <script src="scripts/manager.js"></script>
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+</head>
+<body>
+  <div class="top">
+    <div class="top-row">
+      <div class="brand-title">
+        <svg class="logo" viewBox="0 0 48 48">
+          <rect width="48" height="48" rx="10" fill="#6366f1"/>
+          <path d="M14 16h20M14 24h20M14 32h12" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <h1>SITEINFO Database Editor</h1>
+      </div>
+
+      <!-- Action Toolbar -->
+      <div class="top-actions">
+        <button type="button" id="btn_add_rule" class="btn-top btn-primary">+ Add New Rule</button>
+        <button type="button" id="btn_export_db" class="btn-top btn-secondary" title="Requires access local files on your computer permission">Export JSON</button>
+        <button type="button" id="btn_import_db" class="btn-top btn-secondary" title="Requires access local files on your computer permission">Import JSON</button>
+        <input type="file" id="import_file_input" accept=".json" style="display:none">
+      </div>
+
+      <div class="search-box">
+        <label for="siteinfo_search_input">Search:</label>
+        <div class="input-wrapper">
+          <input type="search" id="siteinfo_search_input" placeholder="Filter pattern, name, url..." autocomplete="off">
+          <div id="loader" class="loader-spinner" style="display: none;">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paging navigation buttons -->
+    <ul id="siteinfo_nav"></ul>
+  </div>
+
+  <div class="table-container">
+    <table id="siteinfo_table">
+      <thead>
+        <tr id="siteinfo_head">
+          <th class="col-index">#</th>
+          <th class="col-flags">
+            <div class="flag-headers">
+              <span title="Disable rule">off</span>
+              <span title="Disable page separator ribbon">nosep</span>
+              <span title="Update address bar on scroll">addr</span>
+              <span title="Allow scripts / jsPatch">script</span>
+              <span title="Force iframe requests">iframe</span>
+            </div>
+          </th>
+          <th><button type="button" id="sort_name">name</button></th>
+          <th><button type="button" id="sort_created_at">created</button></th>
+          <th><button type="button" id="sort_updated_at">updated</button></th>
+          <th><button type="button" id="sort_created_by">author</button></th>
+          <th><button type="button" id="sort_resource_url">database ID</button></th>
+          <th><button type="button" id="sort_hits">hit #</button></th>
+          <th><button type="button" id="sort_misses">miss #</button></th>
+        </tr>
+      </thead>
+      <tbody id="siteinfo_tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Row Template (Hidden) -->
+  <table style="display:none;">
+    <tbody id="tmpl_siteinfo_body">
+      <tr>
+        <td class="cell-index"></td>
+        <td class="cell-flags">
+          <div class="flag-inputs">
+            <input type="checkbox" class="cb-onoff" title="Disable Rule">
+            <input type="checkbox" class="cb-nosep" title="Disable Separator">
+            <input type="checkbox" class="cb-addr" title="Change Address">
+            <input type="checkbox" class="cb-scripts" title="Allow Scripts">
+            <input type="checkbox" class="cb-iframe" title="Force Iframe">
+          </div>
+        </td>
+        <td class="cell-name"><button type="button" class="btn-inspect"></button></td>
+        <td class="cell-created"></td>
+        <td class="cell-updated"></td>
+        <td class="cell-author"></td>
+        <td class="cell-res"></td>
+        <td class="cell-hits"></td>
+        <td class="cell-misses"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal Inspector / Rule Creator -->
+  <div id="siteinfo_view"></div>
+
+  <!-- Progress Bar Overlay -->
+  <div id="progressbar" style="display:none">
+    <span id="progress_percent">Loading...</span>
+    <div id="progress"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+/* ==========================================================================
+   NeoAutoPaginator separator style
+   ========================================================================== */
+
+.autopagerize_page_separator_blocks {
+  -moz-user-select: none !important;
+  user-select: none !important;
+  width: 100% !important;
+  clear: both !important;
+  margin: 18px 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  list-style: none outside none !important;
+  background: transparent !important;
+}
+
+.autopagerize_page_separator {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 24px !important;
+  line-height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-bottom: none !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+/* Mathematically centered divider rule */
+.autopagerize_page_separator::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 50% !important;
+  border-bottom: 1px solid #dae1e8 !important;
+  transform: translateY(-50%) !important;
+  z-index: 1 !important;
+}
+
+.autopagerize_page_info {
+  position: relative !important;
+  z-index: 2 !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  height: 22px !important;
+  line-height: 22px !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #ffffff !important;
+  color: #475569 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .autopagerize_page_separator::before {
+    border-bottom-color: #334155 !important;
+  }
+  .autopagerize_page_info {
+    background: #1e293b !important;
+    color: #cbd5e1 !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3) !important;
+  }
+}
+
+.autopagerize_link, 
+.autopagerize_link:hover {
+  color: inherit !important;
+  text-decoration: none !important;
+  padding-bottom: 2px;
+}
+
+.autopagerize_link:before {
+  content: "page " attr(number);
+}

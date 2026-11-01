@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NeoAutoPaginator - Settings</title>
+  <link rel="stylesheet" href="css/options.css">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="icons/icon.svg" alt="Logo" class="logo">
+        <h2>NeoAutoPaginator</h2>
+      </div>
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="general"><b>General</b></button>
+        <button class="nav-item" data-tab="database"><b>Database & Sync</b></button>
+        <button class="nav-item" data-tab="filters"><b>Exclusions</b></button>
+        <button class="nav-item" data-tab="patterns"><b>Custom Patterns</b></button>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="btn_open_manager" class="btn btn-secondary full-width">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+          Siteinfo Manager
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- GENERAL TAB -->
+      <section id="tab-general" class="tab-pane active">
+        <h1>General Settings</h1>
+        
+        <div class="card">
+          <div class="setting-row">
+            <div>
+              <h3>Auto Start</h3>
+              <p>Automatically start paginating matching web pages</p>
+            </div>
+            <label class="switch"><input type="checkbox" id="auto_start"><span class="slider"></span></label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h3>Update Address Bar</h3>
+              <p>Sync URL and document title with the page currently visible</p>
+            </div>
+            <label class="switch"><input type="checkbox" id="change_address"><span class="slider"></span></label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h3>Floating Status HUD</h3>
+              <p>Show the mini control menu on the bottom right</p>
+            </div>
+            <label class="switch"><input type="checkbox" id="bar_status"><span class="slider"></span></label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h3>Open Links In New Tabs</h3>
+              <p>Force added pages links to open in new tabs (target="_blank")</p>
+            </div>
+            <label class="switch"><input type="checkbox" id="target_blank"><span class="slider"></span></label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h3>Preload Distance</h3>
+              <p>Pixels from the bottom to initiate next page fetch</p>
+            </div>
+            <div class="range-container">
+              <input type="range" id="remaining_height" min="500" max="3000" step="100">
+              <span class="height-val-block"><span id="height_val">    </span> px</span>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="font-size: 18px; margin: 28px 0 12px 0;">Developer & Advanced</h2>
+        <div class="card">
+          <div class="setting-row">
+            <div>
+              <h3>Debug Logging</h3>
+              <p>Output diagnostic rule tests, selector matches, and fetch events in the Web Console</p>
+            </div>
+            <label class="switch"><input type="checkbox" id="debug_mode"><span class="slider"></span></label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h3>Allow JS Patches</h3>
+              <p>Permit executing JavaScript patches defined in local jsPatch SITEINFO fields</p>
+            </div>
+            <label class="switch"><input type="checkbox" id="allow_scripts"><span class="slider"></span></label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h3>Duplicate Detection</h3>
+              <p>Hash check loaded DOM content to prevent loops</p>
+            </div>
+            <label class="switch"><input type="checkbox" id="check_hash"><span class="slider"></span></label>
+          </div>
+
+          <div class="setting-row">
+          <div>
+            <h3>Fix Lazy-Loaded Images</h3>
+            <p>Replace lazy-loading data attributes with image URLs when possible</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="try_correct_lazy">
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="setting-row">
+          <div>
+            <h3>Absolute Image URLs</h3>
+            <p>Convert relative image URLs to absolute URLs from the loaded page</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="force_absolute_img_srcs">
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="setting-row">
+          <div>
+            <h3>Absolute Link URLs</h3>
+            <p>Convert relative links in loaded pages to absolute URLs</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="force_absolute_hrefs">
+            <span class="slider"></span>
+          </label>
+        </div>
+          
+        </div>
+      </section>
+
+      <!-- DATABASE TAB -->
+      <section id="tab-database" class="tab-pane">
+        <h1>Database & Sync</h1>
+        <p class="subtitle">By default NeoAutoPaginator loads initial entries from an offline embedded JSON</p>
+
+        <div class="card">
+          <div class="form-group">
+            <label for="custom_db_url">Custom Remote Database URL (JSON)</label>
+            <input type="url" id="custom_db_url" placeholder="http://wedata.net/databases/AutoPagerize/items.json" class="input-text">
+          </div>
+          <div class="btn-group">
+            <button id="btn_update_remote" class="btn btn-primary">Update From Remote</button>
+            <button id="btn_reload_local" class="btn btn-secondary">Reload Default (Bundled)</button>
+          </div>
+          <p id="db_status_text" class="status-msg"></p>
+        </div>
+      </section>
+
+      <!-- EXCLUSIONS TAB -->
+      <section id="tab-filters" class="tab-pane">
+        <h1>Site Exclusions</h1>
+        <p class="subtitle">Disable autopagination on specific domains, prefixes, or regular expressions</p>
+
+        <div class="card">
+          <div class="filter-builder">
+            <select id="filter_type" class="input-select">
+              <option value="domain">Domain contains</option>
+              <option value="prefix">URL starts with</option>
+              <option value="regexp">RegExp pattern</option>
+            </select>
+            <input type="text" id="filter_input" placeholder="e.g. reddit.com" class="input-text">
+            <button id="btn_add_filter" class="btn btn-primary">Add</button>
+          </div>
+
+          <ul id="filter_list" class="filter-list"></ul>
+        </div>
+      </section>
+
+      <!-- CUSTOM PATTERNS TAB -->
+      <section id="tab-patterns" class="tab-pane">
+        <h1>Custom Siteinfo Rules</h1>
+        <p class="subtitle">Define your own custom SITEINFO JSON items (takes precedence)</p>
+
+        <div class="card">
+          <textarea id="custom_patterns_json" rows="12" class="code-area" placeholder='[
+  {
+    "url": "^https://example\\.com/posts",
+    "nextLink": "//a[@rel=\"next\"]",
+    "pageElement": "//div[@class=\"posts-list\"]"
+  }
+]'></textarea>
+          <div class="btn-group">
+            <button id="btn_save_patterns" class="btn btn-primary">Save Patterns</button>
+            <button id="btn_clear_patterns" class="btn btn-secondary">Clear</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="scripts/common.js"></script>
+  <script src="scripts/options.js"></script>
+</body>
+</html>

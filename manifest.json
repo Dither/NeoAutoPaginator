@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+  "name": "NeoAutoPaginator",
+  "version": "1.0.0",
+  "description": "Seamless infinite pagination for the modern web",
+  "icons": {
+    "16": "icons/icon.svg",
+    "32": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg",
+    "128": "icons/icon.svg"
+  },
+  "background": {
+    "scripts": [
+      "scripts/common.js",
+      "scripts/background.js"
+    ],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "scripts/common.js",
+        "includes/picker.js",
+        "includes/neoapaginator.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icons/icon.svg",
+    "default_title": "NeoAutoPaginator - Add SITEINFO"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "permissions": [
+    "<all_urls>",
+    "storage",
+    "tabs",
+    "activeTab"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "neoapaginator@modern.ver",
+      "strict_min_version": "109.0"
+    }
+  }
+}
